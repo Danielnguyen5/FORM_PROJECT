@@ -1,23 +1,23 @@
-<!-- Save this as index.html -->
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Customer Info Form</title>
-</head>
-<body>
-  <h2>Update Your Info</h2>
+// Using Node.js + Nodemailer
+const nodemailer = require('nodemailer');
 
-  <form action="https://formsubmit.co/ngosdaniel7@gmail.com" method="POST">
-    <!-- Honeypot to stop bots -->
-    <input type="text" name="_honey" style="display:none">
+let transporter = nodemailer.createTransport({
+  service: 'gmail', // or your email provider
+  auth: {
+    user: 'you@yourdomain.com',
+    pass: 'your-email-password'
+  }
+});
 
-    <!-- Redirect after submission -->
-    <input type="hidden" name="_next" value="https://Danielnguyen5.github.io/thank-you.html">
+let mailOptions = {
+  from: 'you@yourdomain.com',
+  to: '1234567890@vtext.com', // phone number @ carrier gateway
+  subject: '',
+  text: 'This is a test SMS sent via email.'
+};
 
-    <input type="text" name="name" placeholder="Full Name" required><br><br>
-    <input type="email" name="email" placeholder="Email Address" required><br><br>
-    <textarea name="message" placeholder="Your message or update..." required></textarea><br><br>
-    <button type="submit">Submit</button>
-  </form>
-</body>
-</html>
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) console.log(error);
+  else console.log('Email sent: ' + info.response);
+});
+
